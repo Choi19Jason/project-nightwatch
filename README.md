@@ -72,3 +72,6 @@ JML automation · least-privilege file shares · access-review reporting · atta
 
 ## Note
 Isolated home lab. No credentials, passwords, or secrets are committed to this repository.
+
+## Related project
+[devsecops-grc-pipeline](https://github.com/Choi19Jason/devsecops-grc-pipeline): an intentionally vulnerable Flask app scanned by Trivy, CodeQL and OWASP ZAP in GitHub Actions, with before-and-after findings. Work in progress.
