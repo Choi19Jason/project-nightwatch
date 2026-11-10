@@ -1,4 +1,4 @@
-# Project Nightwatch — Enterprise AD & SOC Detection Lab
+# Project Nightwatch: Active Directory and SOC Detection Lab
 
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 ![Milestones](https://img.shields.io/badge/milestones-11%20complete-blue)
