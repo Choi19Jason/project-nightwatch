@@ -11,9 +11,9 @@ A segmented 5-VM Windows lab with a Splunk SIEM, built in VirtualBox from August
 
 ---
 
-## TL;DR (what a reviewer should take away)
+## Summary
 
-- Stood up a realistic **3-zone segmented network** (servers / workstations / security) behind a pfSense firewall, with a Windows Server 2025 domain controller and an Ubuntu + Splunk SIEM.
+- Built a **3-zone segmented network** (servers / workstations / security) behind a pfSense firewall, with a Windows Server 2025 domain controller and an Ubuntu + Splunk SIEM.
 - Built a **least-privilege telemetry pipeline** from the DC into Splunk and debugged a real Sysmon access-denied failure with a single-permission fix instead of over-privileging the agent.
 - Hardened service identity with a **gMSA** (AES-only, auto-rotating password) and **proved the difference in the logs** against a legacy RC4 account.
 - Wrote and validated a **Kerberoasting detection** (Splunk alert + Sigma rule), documented as a **SOC-style incident write-up**.
@@ -56,6 +56,13 @@ detections/       Splunk detections + Sigma rules (detection-as-code)
 tools/            Small security automation tools (Python)
 diagrams/         Architecture and data-flow diagrams
 ```
+## Limits
+
+- A lab, not production: one domain controller, five VMs, no endpoint protection tool, no attacker machine.
+- The only attack step is a service-ticket request made with klist on DC01. No cracking, no real-world attack tooling.
+- The Splunk alert was tested against one legacy account (svc-sql). No false positives were observed in the lab; the write-up lists the ones to expect in a real network.
+- The gMSA comparison needs a retest (see the note in the incident write-up).
+- Milestone 12 (joiner/mover/leaver automation) is in progress.
 
 ## Milestones
 
@@ -67,7 +74,7 @@ diagrams/         Architecture and data-flow diagrams
 | 11 | Kerberoasting detection (Splunk alert + Sigma) | Detection engineering |
 | 12 | Joiner/Mover/Leaver lifecycle automation *(in progress)* | IAM automation |
 
-## Roadmap
+## Ideas, not started
 JML automation · least-privilege file shares · access-review reporting · attack-chain simulation · AI-agent prompt-injection detection · Entra ID / Okta tenant.
 
 ## Note
