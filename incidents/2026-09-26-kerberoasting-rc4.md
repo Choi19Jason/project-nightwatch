@@ -22,7 +22,7 @@ A Kerberos service ticket (Event ID 4769) was requested for the user account `sv
 | Time | Event |
 |---|---|
 | 20:11 | Baseline confirmed: Kerberos Service Ticket Operations auditing enabled on DC01 (Success). |
-| ~20:11 | Service-ticket request issued for SPN `MSSQLSvc/sql01.nightwatch.local:1433` (account `svc-sql`). |
+| ~20:11 | Service-ticket request issued for SPN MSSQLSvc/sql01.nightwatch.local:1433(accountsvc-sql) with klist get MSSQLSvc/sql01.nightwatch.local:1433, run as Administrator on DC01. Built-in Windows command; no password cracking. |
 | 20:15 | Scheduled Splunk alert **"Kerberoasting - RC4 Service Ticket Requested"** fired (runs every 15 min). |
 | 20:18 | Triage: event reviewed, source host and account identified. |
 | 20:25 | Verdict reached; comparison against the gMSA control documented. |
@@ -45,7 +45,7 @@ index=* EventCode=4769 Ticket_Encryption_Type=0x17 Service_Name!="*$" Service_Na
 | Ticket_Encryption_Type | `0x17` (RC4-HMAC) |
 | Client_Address | `::1` (request originated on DC01 — expected for this lab validation) |
 
-**Control comparison:** in the same window, the gMSA `gmsa-web01$` received ticket type `0x12` (AES-256) and did **not** match the detection — confirming the rule distinguishes the weak account from the hardened one.
+**Control comparison:** in the same window, the gMSA gmsa-web01$ received ticket type 0x12 (AES-256) and did not match the detection. This shows the gMSA used AES-256. It does not show that the rule distinguishes weak accounts from hardened ones, because the search also excludes service names ending in $ (Service_Name!="*$"), which removes the gMSA by name before the encryption type is checked. Pending retest: remove that name exclusion, rerun the search, and confirm the gMSA's AES-256 ticket still does not match, so the encryption filter alone is shown to separate them.
 
 ## 4. Analysis
 
@@ -55,7 +55,7 @@ index=* EventCode=4769 Ticket_Encryption_Type=0x17 Service_Name!="*$" Service_Na
 
 ## 5. Verdict
 
-**Confirmed detection of a Kerberoasting precondition (simulated).** The alert behaved correctly: it fired on the RC4 request for a user SPN and excluded computer/gMSA accounts and `krbtgt`.
+**Confirmed detection of a Kerberoasting precondition (simulated).** The alert behaved correctly: it fired on the RC4 request for a user SPN and excluded computer and gMSA accounts (by name) and krbtgt.
 
 ## 6. Recommended next steps
 
