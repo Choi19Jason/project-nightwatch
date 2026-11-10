@@ -29,9 +29,9 @@ index=* EventCode=4769 Ticket_Encryption_Type=0x17 Service_Name!="*$" Service_Na
 
 ## Validation
 
-Tested on 2026-09-26 against lab telemetry. The search returned the RC4 ticket issued for the legacy service account `svc-sql` and correctly ignored the AES-256 ticket issued for `gmsa-web01$`. The saved alert then fired on its own schedule at 20:15 UTC after a fresh ticket request, confirming it works unattended.
+Tested on 2026-09-26 against lab telemetry. The search returned the RC4 ticket issued for the legacy service account `svc-sql` but not the AES-256 ticket issued for gmsa-web01$. That account is also excluded by the Service_Name!="*$" filter, so this does not show that the encryption filter alone separates the two. A retest with that filter removed is pending.
 
-## Known false positives
+## Known false positives and Blind Spots
 
 Older applications or service accounts that only support RC4 will trigger this alert.
 
