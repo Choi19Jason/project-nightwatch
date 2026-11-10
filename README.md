@@ -5,7 +5,7 @@
 ![Splunk](https://img.shields.io/badge/SIEM-Splunk-black)
 ![MITRE ATT&CK](https://img.shields.io/badge/MITRE%20ATT%26CK-mapped-red)
 
-A segmented, 5-VM enterprise Active Directory lab with a Splunk SIEM, built from scratch to practice the full detection-engineering loop: **build the infrastructure → generate the telemetry → simulate the attack → detect it → harden against it.**
+A segmented 5-VM Windows lab with a Splunk SIEM, built in VirtualBox from August 11 to September 26, 2026 to practice the detection loop: **build the infrastructure → generate the telemetry → simulate the attack → detect it → harden against it.**
 
 **Author:** Joonwoo Choi — CIT @ Purdue (Class of 2028) · targeting a Summer 2027 SOC / IAM internship
 
